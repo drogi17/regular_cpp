@@ -36,6 +36,16 @@ public:
         len_++;
         return *this;
     };
+
+    regular &add_to_start(const int data){
+        regular_val *new_element = new regular_val;
+        new_element->data = data;
+        new_element->next = first->next;
+        first->next = new_element;
+        len_++;
+        return *this;
+    };
+
     void view(){
         regular_val *now = first;
         cout << "~(";
@@ -63,6 +73,34 @@ public:
             now_1 = now_1->next;
         }
     }
+
+    // void sort(){
+    //     int min_, max_, temp;
+    //     regular *array = this;
+    //     // while()
+    //     // cout << array->len();
+    //     if (array->get(array->len()/2) > array->get(array->len()/2 + 1)){
+    //         max_ = array->get(array->len()/2);
+    //         min_ = array->get(array->len()/2 + 1);
+    //     } else{
+    //         min_ = array->get(array->len()/2);
+    //         max_ = array->get(array->len()/2 + 1);
+    //     }
+    //     // cout << array->get(array->len()/2) << ", " << array->get(array->len()/2) << endl;
+    //     for (int i = 0; i < array->len()/2; i++){
+    //         // cout << array->get(i) << endl;
+    //         array->view();
+    //         if (array->get(i) < min_){
+    //             temp = array->get(0);
+    //             array->get(0) = array->get(i);
+    //             array->get(i) = temp;
+    //         } else if (array->get(i) > max_){
+    //             temp = array->get(array->len()-1);
+    //             array->get(array->len()-1) = array->get(i);
+    //             array->get(i) = temp;
+    //         }
+    //     } 
+    // }
 
     int len(){
         return len_;

@@ -8,7 +8,12 @@ using std::cin;
 
 int main() {
     regular reg, reg1;
-    reg1.add(1).add(4).add(10).add(228);
+    reg1.add(1).add(4).add(10).add(228).add_to_start(121).add_to_start(121).add_to_start(414123);
+    reg1.view();
+    // reg1;
+    reg1.view();
+    cout << reg1[0];
+    reg1.view();
     for (int i = 0; i < 10; i++){
         reg.add(9-i);
     }
