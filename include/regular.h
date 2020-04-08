@@ -6,7 +6,7 @@ using std::cin;
 
 struct regular_val {
     int data;
-    regular_val *next;
+    regular_val *next = NULL;
 };
 
 class regular {
@@ -16,12 +16,16 @@ private:
 public:
     regular(){
         first = new regular_val;
-        first->next = NULL;
     };
-    regular(regular_val *first_){
-        first = first_;
+    ~regular(){
+        regular_val *temp;
+        while (first != NULL){
+            temp = first->next;
+            delete first;
+            first = temp;
+        };
     };
-    regular add(int data){
+    regular &add(int data){
         regular_val *now = first;
         while(now->next != NULL){
             now = now->next;
@@ -30,7 +34,7 @@ public:
         now = now->next;
         now->data = data;
         len_++;
-        return regular(first);
+        return *this;
     };
     void view(){
         regular_val *now = first;
@@ -92,6 +96,15 @@ public:
         delete temp;
     }
 
+    void clear(){
+        regular_val *temp;
+        while (first->next != NULL){
+            temp = first->next;
+            delete first;
+            first = temp;
+        };
+    }
+
     int &operator[](const int key){
         regular_val *now = first;
         for (int i = 0; i < key+1; i++){
@@ -105,7 +118,15 @@ public:
     };
 
     void operator += (const int right){
-        regular new_regular = regular(first);
-        new_regular.add(right);
+        (*this).add(right);
     };
+
+    void operator = (regular &right){
+        (*this).clear();
+        for (int i = 0; i < right.len(); i++){
+            (*this) += right[i];
+        }
+        right.view();
+    };
+
 };

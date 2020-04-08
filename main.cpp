@@ -5,13 +5,19 @@ using std::endl;
 using std::cout;
 using std::cin;
 
+
 int main() {
     regular reg, reg1;
     reg1.add(1).add(4).add(10).add(228);
     for (int i = 0; i < 10; i++){
         reg.add(9-i);
     }
-    // reg.add(10).add(123).add(20).add(99).add(123).add(2).add(0).add(-123).add(2).add(-123).add(-1123123);
+    reg1.view();
+    reg.view();
+    reg1 = reg;
+    reg1.view();
+    reg1.clear();
+    reg1.add(1).add(4).add(10).add(228).view();
     reg.view();
     reg.sort();
     reg.view();
