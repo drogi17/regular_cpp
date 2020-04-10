@@ -12,11 +12,18 @@ struct regular_val {
 class regular {
 private:
     int len_ = 0;
-    regular_val *first;
+    regular_val *first = new regular_val;
 public:
     regular(){
-        first = new regular_val;
-    };
+        // first = new regular_val;
+    }
+
+    regular(regular &reg){
+        for (int i = 0; i < reg.len(); i++){
+            (*this) += reg[i];
+        }
+    }
+
     ~regular(){
         regular_val *temp;
         while (first != NULL){
@@ -24,7 +31,7 @@ public:
             delete first;
             first = temp;
         };
-    };
+    }
     regular &add(int data){
         regular_val *now = first;
         while(now->next != NULL){
@@ -35,7 +42,7 @@ public:
         now->data = data;
         len_++;
         return *this;
-    };
+    }
 
     regular &add_to_start(const int data){
         regular_val *new_element = new regular_val;
@@ -44,7 +51,21 @@ public:
         first->next = new_element;
         len_++;
         return *this;
-    };
+    }
+
+    void incert(int key, int data){
+        regular_val *now = first;
+        regular_val *new_element = new regular_val;
+        for (int i = 0; i < key; i++){
+            if (now->next == NULL){
+                break;
+            }
+            now = now->next;
+        }
+        new_element->data = data;
+        new_element->next = now->next->next;
+        now->next = new_element;
+    }
 
     void view(){
         regular_val *now = first;
@@ -54,7 +75,7 @@ public:
             cout << now->data << ", ";
         }
         cout << ")~" << endl;
-    };
+    }
 
     void sort(){
         regular_val *now_1 = first,
@@ -74,39 +95,11 @@ public:
         }
     }
 
-    // void sort(){
-    //     int min_, max_, temp;
-    //     regular *array = this;
-    //     // while()
-    //     // cout << array->len();
-    //     if (array->get(array->len()/2) > array->get(array->len()/2 + 1)){
-    //         max_ = array->get(array->len()/2);
-    //         min_ = array->get(array->len()/2 + 1);
-    //     } else{
-    //         min_ = array->get(array->len()/2);
-    //         max_ = array->get(array->len()/2 + 1);
-    //     }
-    //     // cout << array->get(array->len()/2) << ", " << array->get(array->len()/2) << endl;
-    //     for (int i = 0; i < array->len()/2; i++){
-    //         // cout << array->get(i) << endl;
-    //         array->view();
-    //         if (array->get(i) < min_){
-    //             temp = array->get(0);
-    //             array->get(0) = array->get(i);
-    //             array->get(i) = temp;
-    //         } else if (array->get(i) > max_){
-    //             temp = array->get(array->len()-1);
-    //             array->get(array->len()-1) = array->get(i);
-    //             array->get(i) = temp;
-    //         }
-    //     } 
-    // }
-
     int len(){
         return len_;
     }
 
-    int get(int key){
+    int &get(int key){
         regular_val *now = first;
         for (int i = 0; i < key+1; i++){
             if (now == NULL){
@@ -153,18 +146,17 @@ public:
             now = now->next;
         }
         return now->data;
-    };
+    }
 
     void operator += (const int right){
         (*this).add(right);
-    };
+    }
 
     void operator = (regular &right){
         (*this).clear();
         for (int i = 0; i < right.len(); i++){
             (*this) += right[i];
         }
-        right.view();
-    };
+    }
 
 };
