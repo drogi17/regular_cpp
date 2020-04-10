@@ -18,9 +18,11 @@ public:
         // first = new regular_val;
     }
 
-    regular(regular &reg){
-        for (int i = 0; i < reg.len(); i++){
-            (*this) += reg[i];
+    regular(const regular &reg){
+        regular_val *now = reg.first;
+        while(now->next != NULL){
+            now = now->next;
+            (*this) += now->data;
         }
     }
 
@@ -152,10 +154,12 @@ public:
         (*this).add(right);
     }
 
-    void operator = (regular &right){
+    void operator = (const regular &right){
         (*this).clear();
-        for (int i = 0; i < right.len(); i++){
-            (*this) += right[i];
+        regular_val *now = right.first;
+        while(now->next != NULL){
+            now = now->next;
+            (*this) += now->data;
         }
     }
 

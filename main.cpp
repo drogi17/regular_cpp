@@ -10,9 +10,10 @@ void regular_show(regular &reg, int num){
 	reg.view();
 }
 
-void print_regular(regular &reg){
-    reg.view();
+regular print_add(regular reg){
     reg.add(1312);
+    reg.view();
+    return reg;
 }
 
 int main() {
@@ -22,7 +23,10 @@ int main() {
     for (int i = 0; i < 10; i++){
         reg.add(9-i);
     }
+    cout << endl << endl;
+    cout << "print_add: " << endl;
     regular_show(reg, 1);
+    reg = print_add(reg);
     cout << endl << endl;
     cout << "Sort: " << endl;
     regular_show(reg, 1);
